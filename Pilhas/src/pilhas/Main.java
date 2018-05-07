@@ -18,5 +18,4 @@ public class Main {
        topo = p.desempilhar();
         System.out.println("Elemento Removido: " + topo);
     }
-    
 }
