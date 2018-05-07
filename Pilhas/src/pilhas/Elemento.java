@@ -10,5 +10,27 @@ package pilhas;
  * @author danesi
  */
 public class Elemento {
+    private String Info;
+    private Elemento prox;
+
+    public Elemento(String i) {
+        this.Info = i;
+    }
+
+    public String getInfo() {
+        return Info;
+    }
+
+    public void setInfo(String Info) {
+        this.Info = Info;
+    }
+
+    public Elemento getProx() {
+        return prox;
+    }
+
+    public void setProx(Elemento prox) {
+        this.prox = prox;
+    }
     
 }
