@@ -37,11 +37,12 @@ public class TelaListaContato extends Window{
     private Table tblCli;
     private Panel pnlLista;
     private Component[] linha=new Component[4];
-   
+    private String nomeContato;
     private static GUIScreen guiScreen;
     
-    public TelaListaContato(GUIScreen gS) {
+    public TelaListaContato(GUIScreen gS, String nome) {
         super("Listagem de Contatos");
+        this.nomeContato = nome;
         this.guiScreen=gS;
     init();    
     }
@@ -67,7 +68,7 @@ public class TelaListaContato extends Window{
         linha[3] = new Label("---------------");
         tblCli.addRow(linha);
         
-       for (Contato contatos : ctrl.listarTodosContatos()) {
+       for (Contato contatos : ctrl.ConsultaContatoporNome(nomeContato)) {
        
         linha[0] = new Label(""+contatos.getCodigoContato());
         linha[1] = new Label(contatos.getNomeContato());

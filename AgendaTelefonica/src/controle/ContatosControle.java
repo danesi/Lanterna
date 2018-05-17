@@ -53,13 +53,14 @@ public class ContatosControle {
     }
     public String AlterarContato (Contato cont){
     String mensagem="";
-    String SQL = "alter";
+String SQL = "UPDATE contatos SET nomecontato=?, fonecelular=?, fonefixo=? WHERE codigo =?";
     try{
         PreparedStatement ps= con.prepareStatement(SQL);
         ps.setString(1, cont.getNomeContato());
         ps.setString(2, cont.getNumCelular());
         ps.setString(3, cont.getNumFixo());
-        //ps.executeUpdate();//podemos retirar este aqui.
+        ps.setInt(4, cont.getCodigoContato());
+        ps.executeUpdate();//podemos retirar este aqui.
         if(ps.executeUpdate()>0){
         return "Inclusão de novo contato realizada com sucesso";
         }else{
@@ -89,7 +90,28 @@ public class ContatosControle {
         return e.getMessage();
     }
     }
+    public Contato consultaContato(int cod){
+         String SQL="Select * from contatos where codigo ="+cod;
+          Contato cont =new Contato();
+         try {
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs= ps.executeQuery(); 
+            if(rs !=null){
+            while(rs.next()){
+           
+            cont.setCodigoContato(rs.getInt("codigo"));
+            cont.setNomeContato(rs.getString("nomecontato"));
+            cont.setNumCelular(rs.getString("fonecelular"));
+            cont.setNumFixo(rs.getString("fonefixo"));
+              }
+            }
+            
+            return cont;
+        } catch (SQLException e) {
+            return null;
+        }
     
+    }
     
     public List<Contato> listarTodosContatos() {
         String SQL="Select * from contatos order by codigo";
@@ -133,4 +155,29 @@ public class ContatosControle {
     }      
         
     
-}
+    
+    
+    public List<Contato> ConsultaContatoporNome(String nome){
+         String SQL="Select * from contatos where nomecontato like '"+nome+"%'";
+         List<Contato> listafunc = new ArrayList<Contato>();
+       try {
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs= ps.executeQuery(); 
+            if(rs !=null){
+            while(rs.next()){
+            Contato cont =new Contato();
+            cont.setCodigoContato(rs.getInt("codigo"));
+            cont.setNomeContato(rs.getString("nomecontato"));
+            cont.setNumCelular(rs.getString("fonecelular"));
+            cont.setNumFixo(rs.getString("fonefixo"));
+            
+            
+            listafunc.add(cont);
+            }
+            }
+            return listafunc;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+    }

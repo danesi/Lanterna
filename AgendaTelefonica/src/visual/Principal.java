@@ -25,13 +25,13 @@ public class Principal {
    
     public static void main(String[] args) {
     //
-        terminal = TerminalFacade.createTerminal();
-        screen = new Screen(terminal);
-        guiScreen = new GUIScreen(screen);
+        terminal = TerminalFacade.createTerminal();// indica que vai ter um terminal
+        screen = new Screen(terminal);// define o terminal
+        guiScreen = new GUIScreen(screen);// cria um objeto de interface grafica, aonde tudo o que é grafico fica aqui
 
-        screen.startScreen();
+        screen.startScreen();// mostrar a tela grafica
         
-        guiScreen.showWindow(new TelaPrincipal(guiScreen));
+        guiScreen.showWindow(new TelaPrincipal(guiScreen));// chama a tela principal
         screen.stopScreen();
     
     

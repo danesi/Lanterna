@@ -20,6 +20,7 @@ import com.googlecode.lanterna.gui.component.Label;
 import com.googlecode.lanterna.gui.component.Panel;
 
 public class TelaPrincipal extends Window{
+    // declara 
  private Panel painel01;
  private Button botaoSair;
  private Button botaoIncluir;
@@ -27,9 +28,10 @@ public class TelaPrincipal extends Window{
 
  private Button botaoListaContato;
  private Button botaoListaTodos;
+ private Button botaoListaTodosPDF;
  private Label label01;
  //Contato contato = new Contato();
- private static GUIScreen guitelaprincipal;
+ private static GUIScreen guitelaprincipal; // SEMPRE INSTANCIAR 
  
     public TelaPrincipal(GUIScreen gS) {
         super("Tela Principal");
@@ -37,19 +39,25 @@ public class TelaPrincipal extends Window{
         init();
     }
        private void init() {
-        setBorder(new Border.Standard());
-        painel01 = new Panel(Panel.Orientation.VERTICAL);
+        setBorder(new Border.Standard());// SETA A BORDA
+        painel01 = new Panel(Panel.Orientation.VERTICAL);// DEFINE UM PAINEL
         painel01.setBetweenComponentsPadding(1);
-        label01 = new Label("Menu de opções");
+        label01 = new Label("Menu de opções"); 
         addComponent(label01);
-        botaoIncluir = new Button("Incluir Contato", new Action() {
+        botaoIncluir = new Button("Incluir Contato", new Action() { // INSTANCIA O BOTÃO E EXECUTA UMA AÇÃO action
             @Override
             public void doAction() {
               guitelaprincipal.showWindow(new TelaIncluirContato(guitelaprincipal));
             }
-            
         });
-        addComponent(botaoIncluir);
+        
+        
+        
+        
+        
+        
+        
+        addComponent(botaoIncluir); // incluir o botão
         botaoAlteraouExclui = new Button("Alterar ou excluir Contatos", new Action() {
             @Override
             public void doAction() {
@@ -59,15 +67,25 @@ public class TelaPrincipal extends Window{
         });
         addComponent(botaoAlteraouExclui);
         
+        
+        
+        
+        
 
         botaoListaContato = new Button("Listar Contato", new Action() {
             @Override
             public void doAction() {
-            // guitelaprincipal.showWindow(new TelaBuscaContatos(guitelaprincipal));
+            guitelaprincipal.showWindow(new TelaProcuraNome(guitelaprincipal));
             }
             
         });
         addComponent(botaoListaContato);
+        
+        
+        
+        
+        
+        
         
                 botaoListaTodos = new Button("Listagem todos contatos", new Action() {
             @Override
@@ -76,7 +94,29 @@ public class TelaPrincipal extends Window{
             }
             
         });
-        addComponent(botaoListaTodos);
+                addComponent(botaoListaTodos);
+                
+                
+                
+                
+                
+                
+                botaoListaTodosPDF = new Button("Gerar relatório", new Action() {
+            @Override
+            public void doAction() {
+             //guitelaprincipal.showWindow(new TelaListarTodosContatos(guitelaprincipal));
+            }
+            
+        });
+                
+        addComponent(botaoListaTodosPDF);
+        
+        
+        
+        
+        
+        
+        
         botaoSair = new Button("Sair", new Action() {
         @Override
             public void doAction() {
