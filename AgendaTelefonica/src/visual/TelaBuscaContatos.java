@@ -86,16 +86,16 @@ public class TelaBuscaContatos extends Window{
                     @Override
                     public void doAction() {
 
-                        MessageBox.showMessageBox(guiScreen, "Alteração", "Alteração item código "+numauxarray);
-                        //guiScreen.showWindow(new TelaAlterarContato(guiScreen));
+                        //MessageBox.showMessageBox(guiScreen, "Alteração", "Alteração item código "+numauxarray);
+                        guiScreen.showWindow(new TelaAlterarContato(guiScreen,numauxarray));
                     }
                 });
                 linha[3] = new Button("Excluir", new Action() {
                     @Override
                     public void doAction() {
 
-                        MessageBox.showMessageBox(guiScreen, "Exclusão", "Exclusão de item código "+numauxarray);
-                        //guiScreen.showWindow(new TelaExcluirContato(guiScreen));
+                      //  MessageBox.showMessageBox(guiScreen, "Exclusão", "Exclusão de item código "+numauxarray);
+                        guiScreen.showWindow(new TelaExcluirContato(guiScreen,numauxarray));
                     }
                 });
                 tblCli.addRow(linha);

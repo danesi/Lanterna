@@ -24,30 +24,30 @@ public class TelaProcuraNome extends Window{
  private Label label01;
  private Label lblNome;
  private TextBox txtNome;
+
  private static GUIScreen guiScreen;
  
     public TelaProcuraNome(GUIScreen gS) {
-        super("Procura Contato:");
+        super("Procura Contato");
         this.guiScreen=gS;
         init();
     }
     private void init() {
-        
+       
         setBorder(new Border.Standard());
         painel01 = new Panel(Panel.Orientation.HORISONTAL);
         painel01.setBetweenComponentsPadding(1);
-        label01 = new Label("Digite o Nome do Contato:");
+        label01 = new Label("Digite o Nome do Contato  ");
         addComponent(label01);
-        lblNome = new Label("Contato");
-        txtNome = new TextBox();        
-        
+        lblNome = new Label("Contato :");
+        txtNome = new TextBox();
         addComponent(lblNome);
         addComponent(txtNome);
         
         botaoBuscar = new Button("Buscar", new Action() {
             @Override
             public void doAction() {
-                guiScreen.showWindow(new TelaListaContato(guiScreen, txtNome.getText()));
+              guiScreen.showWindow(new TelaListaContato(guiScreen,txtNome.getText()));       
                 close();
             }
             

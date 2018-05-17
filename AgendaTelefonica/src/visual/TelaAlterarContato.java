@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package visual;
 
+import modelo.Contato;
 import com.googlecode.lanterna.gui.Action;
 import com.googlecode.lanterna.gui.Border;
 import com.googlecode.lanterna.gui.GUIScreen;
@@ -18,14 +14,13 @@ import com.googlecode.lanterna.gui.dialog.MessageBox;
 import controle.Conexao;
 import controle.ContatosControle;
 import java.sql.Connection;
-import modelo.Contato;
 
 /**
  *
  * @author boemo
  */
 public class TelaAlterarContato extends Window{
-   private Panel painel01;
+ private Panel painel01;
  private Button botaoSair;
  private Button botaoSalvar;
  private Label label01;
@@ -37,28 +32,32 @@ public class TelaAlterarContato extends Window{
  private TextBox txtFixo;
  Contato contato = new Contato();
  private static GUIScreen guiScreen;
+ private String codigo;
+        
  
-    public TelaAlterarContato(GUIScreen gS) {
+    public TelaAlterarContato(GUIScreen gS,String cod) {
         super("Tela de Alteração de Contato");
         this.guiScreen=gS;
+        this.codigo=cod;
         init();
     }
     private void init() {
         
         Connection conn = Conexao.AbrirConexao();
         ContatosControle ctrl=new ContatosControle(conn);
-        
+       
+        contato=ctrl.consultaContato(Integer.parseInt(codigo));
         setBorder(new Border.Standard());
         painel01 = new Panel(Panel.Orientation.HORISONTAL);
         painel01.setBetweenComponentsPadding(1);
-        label01 = new Label("Inclusão de Contato  ");
+        label01 = new Label("Alteração de Contato  ");
         addComponent(label01);
         lblNome = new Label("Nome do Contato :");
-        txtNome = new TextBox();
+        txtNome = new TextBox(contato.getNomeContato().toString());
         lblCelular = new Label("Telefone Celular:");
-        txtCelular = new TextBox();
+        txtCelular = new TextBox(contato.getNumCelular().toString());
         lblFixo = new Label("Telefone fixo:");
-        txtFixo = new TextBox();        
+        txtFixo = new TextBox(contato.getNumFixo().toString());        
         
         addComponent(lblNome);
         addComponent(txtNome);
@@ -73,6 +72,7 @@ public class TelaAlterarContato extends Window{
              contato.setNomeContato(txtNome.getText());
              contato.setNumCelular(txtCelular.getText());
              contato.setNumFixo(txtFixo.getText());
+                         
              MessageBox.showMessageBox(guiScreen, "Contatos",ctrl.AlterarContato(contato));
                  
                 close();

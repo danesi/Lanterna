@@ -31,7 +31,7 @@ public class ContatosControle {
     }
     
     public String InserirContato(Contato cont){
-    String mensagem="";
+    
     String SQL = "insert into contatos(codigo, nomecontato, fonecelular, fonefixo) "
             + "values(Default,?,?,?)";
     try{
@@ -52,8 +52,7 @@ public class ContatosControle {
 
     }
     public String AlterarContato (Contato cont){
-    String mensagem="";
-String SQL = "UPDATE contatos SET nomecontato=?, fonecelular=?, fonefixo=? WHERE codigo =?";
+    String SQL = "UPDATE contatos SET nomecontato=?, fonecelular=?, fonefixo=? WHERE codigo =?";
     try{
         PreparedStatement ps= con.prepareStatement(SQL);
         ps.setString(1, cont.getNomeContato());
@@ -71,20 +70,16 @@ String SQL = "UPDATE contatos SET nomecontato=?, fonecelular=?, fonefixo=? WHERE
         return e.getMessage();
     }
     }    
-    public String ExcluirContato (Contato cont){
-    String mensagem="";
-    String SQL = "delete";
+    public String ExcluirContato (String codigo){
+
+    String SQL = "delete from contatos where codigo="+codigo;
     try{
         PreparedStatement ps= con.prepareStatement(SQL);
-        ps.setString(1, cont.getNomeContato());
-        ps.setString(2, cont.getNumCelular());
-        ps.setString(3, cont.getNumFixo());
         ps.executeUpdate();//podemos retirar este aqui.
-        if(ps.executeUpdate()>0){
-        return "Inclusão de novo contato realizada com sucesso";
-        }else{
-        return "Erro ao tentar incluir novo contato";
-        }
+       
+        return "Exclusão do contato realizada com sucesso";
+       
+        
     
     }catch(SQLException e){
         return e.getMessage();
@@ -112,6 +107,29 @@ String SQL = "UPDATE contatos SET nomecontato=?, fonecelular=?, fonefixo=? WHERE
         }
     
     }
+    public List<Contato> consultaContatoporNome(String nome){
+       String SQL="Select * from contatos where nomecontato like '"+nome+"%'";
+       List<Contato> listafunc = new ArrayList<Contato>();
+       try {
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs= ps.executeQuery(); 
+            if(rs !=null){
+            while(rs.next()){
+            Contato cont =new Contato();
+            cont.setCodigoContato(rs.getInt("codigo"));
+            cont.setNomeContato(rs.getString("nomecontato"));
+            cont.setNumCelular(rs.getString("fonecelular"));
+            cont.setNumFixo(rs.getString("fonefixo"));
+           
+            
+            listafunc.add(cont);
+            }
+            }
+            return listafunc;
+        } catch (SQLException e) {
+            return null;
+        }
+    }   
     
     public List<Contato> listarTodosContatos() {
         String SQL="Select * from contatos order by codigo";
@@ -155,29 +173,4 @@ String SQL = "UPDATE contatos SET nomecontato=?, fonecelular=?, fonefixo=? WHERE
     }      
         
     
-    
-    
-    public List<Contato> ConsultaContatoporNome(String nome){
-         String SQL="Select * from contatos where nomecontato like '"+nome+"%'";
-         List<Contato> listafunc = new ArrayList<Contato>();
-       try {
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ResultSet rs= ps.executeQuery(); 
-            if(rs !=null){
-            while(rs.next()){
-            Contato cont =new Contato();
-            cont.setCodigoContato(rs.getInt("codigo"));
-            cont.setNomeContato(rs.getString("nomecontato"));
-            cont.setNumCelular(rs.getString("fonecelular"));
-            cont.setNumFixo(rs.getString("fonefixo"));
-            
-            
-            listafunc.add(cont);
-            }
-            }
-            return listafunc;
-        } catch (SQLException e) {
-            return null;
-        }
-    }
-    }
+}
